@@ -75,6 +75,40 @@ export const RepositoryInfo = styled.section`
       }
     }
   }
+
+  @media only screen and (max-width: 600px) {
+    margin-top: 30px;
+
+    header {
+      display: flex;
+      flex-direction: column;
+
+      div {
+        margin-left: 0;
+
+        span {
+          text-align: center;
+        }
+
+        p {
+          text-align: center;
+        }
+      }
+    }
+
+    ul {
+      display: flex;
+      flex-direction: column;
+
+      li {
+        border-bottom: 0.5px solid #6c6c80;
+
+        & + li {
+          margin: 10px 0;
+        }
+      }
+    }
+  }
 `;
 
 export const Issues = styled.div`
