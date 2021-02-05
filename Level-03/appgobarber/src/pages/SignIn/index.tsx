@@ -33,12 +33,10 @@ interface SignInFormData {
 }
 
 const SignIn: React.FC = () => {
-  const { signIn, user } = useAuth();
+  const { signIn } = useAuth();
   const navigation = useNavigation();
   const formRef = useRef<FormHandles>(null);
   const passwordInputRef = useRef<TextInput>(null);
-
-  console.log(user);
 
   const handleSignIn = useCallback(async (data: SignInFormData) => {
     try {

@@ -8,13 +8,7 @@ import {
   JoinColumn,
 } from 'typeorm';
 
-import User from './User';
-
-/**
- * Um para Um (OneToOne)
- * Um pra Muitos (OneToMany)
- * Muitos para Muitos (ManyToMany)
- */
+import User from '@modules/users/infra/typeorm/entities/User';
 
 @Entity('appointments')
 class Appointment {
