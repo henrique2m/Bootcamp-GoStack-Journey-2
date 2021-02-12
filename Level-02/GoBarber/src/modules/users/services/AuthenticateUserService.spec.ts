@@ -2,12 +2,10 @@ import AppError from '@shared/errors/AppError';
 import FakeHashProvider from '../providers/HashProvider/fakes/FackHashProvider';
 import FakeUsersRepository from '../repositories/fakes/FakeUsersRepository';
 import AuthenticateUserService from './AuthenticateUserService';
-import CreateUserService from './CreateUserService';
 
 let fakeUsersRepository: FakeUsersRepository;
 let fakeHashProvider: FakeHashProvider;
 let authenticateUser: AuthenticateUserService;
-let createUser: CreateUserService;
 
 describe('AuthenticateUser', () => {
   beforeEach(() => {
@@ -18,12 +16,10 @@ describe('AuthenticateUser', () => {
       fakeUsersRepository,
       fakeHashProvider,
     );
-
-    createUser = new CreateUserService(fakeUsersRepository, fakeHashProvider);
   });
 
   it('Should be able to authenticate', async () => {
-    const user = await createUser.execute({
+    const user = await fakeUsersRepository.create({
       name: 'John Doe',
       email: 'teste@teste.com',
       password: '12345678',
@@ -48,7 +44,7 @@ describe('AuthenticateUser', () => {
   });
 
   it('Should not be able to authenticate with wrong password', async () => {
-    createUser.execute({
+    await fakeUsersRepository.create({
       name: 'John Doe',
       email: 'teste@teste.com',
       password: '12345678',
@@ -57,7 +53,7 @@ describe('AuthenticateUser', () => {
     await expect(
       authenticateUser.execute({
         email: 'teste@teste.com',
-        password: '12345',
+        password: 'wrong-password',
       }),
     ).rejects.toBeInstanceOf(AppError);
   });
