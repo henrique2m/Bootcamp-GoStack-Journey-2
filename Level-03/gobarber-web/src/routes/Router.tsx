@@ -1,14 +1,15 @@
 import React from 'react';
-
 import {
-  Route as ReactDOMRouter,
-  RouteProps as ReactDOMRouterProps,
+  Route as ReactDOMRoute,
   Redirect,
+  RouteProps as ReactDOMRouteProps,
 } from 'react-router-dom';
 
 import { useAuth } from '../hooks/auth';
+import Dashboard from '../pages/Dashboard';
+import SignIn from '../pages/SignIn';
 
-interface RouteProps extends ReactDOMRouterProps {
+interface RouteProps extends ReactDOMRouteProps {
   isPrivate?: boolean;
   component: React.ComponentType;
 }
@@ -21,17 +22,13 @@ const Route: React.FC<RouteProps> = ({
   const { user } = useAuth();
 
   return (
-    <ReactDOMRouter
+    <ReactDOMRoute
       {...rest}
       render={() => {
         return isPrivate === !!user ? (
           <Component />
         ) : (
-          <Redirect
-            to={{
-              pathname: isPrivate ? '/' : '/dashboard',
-            }}
-          />
+          <>{isPrivate ? <SignIn /> : <Dashboard />}</>
         );
       }}
     />
